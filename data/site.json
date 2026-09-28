@@ -2,7 +2,10 @@
   "title": "Vinculum",
   "author": "Josh Greengrass",
   "defaultLang": "es",
-  "languages": ["es", "en"],
+  "languages": [
+    "es",
+    "en"
+  ],
   "description": {
     "es": "Vinculum — un fanfic por capítulos.",
     "en": "Vinculum — a serialized fanfic."
@@ -20,7 +23,9 @@
       "toIndex": "Volver al índice",
       "loading": "Cargando…",
       "error": "No se pudo cargar este capítulo.",
-      "fallback": "Este capítulo todavía no está disponible en español; se muestra en inglés."
+      "fallback": "Este capítulo todavía no está disponible en español; se muestra en inglés.",
+      "themeDark": "Activar modo oscuro",
+      "themeLight": "Activar modo claro"
     },
     "en": {
       "langLabel": "Language",
@@ -34,7 +39,9 @@
       "toIndex": "Back to index",
       "loading": "Loading…",
       "error": "This chapter couldn't be loaded.",
-      "fallback": "This chapter isn't available in English yet; showing the Spanish version."
+      "fallback": "This chapter isn't available in English yet; showing the Spanish version.",
+      "themeDark": "Switch to dark mode",
+      "themeLight": "Switch to light mode"
     }
   }
 }

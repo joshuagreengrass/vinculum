@@ -5,11 +5,16 @@
 
 :root {
   --paper: #f2f0eb;
+  --paper-rgb: 242, 240, 235;
   --ink: #121412;
   --muted: #6d716c;
   --line: rgba(18, 20, 18, 0.14);
   --accent: #1e4a37;      /* verde Greengrass */
   --blood: #7c1518;
+  --media-bg: #d8d6d0;
+  --prose-ink: #1b1d1b;
+  --quote-ink: #3a3d3a;
+  --ghost: rgba(18, 20, 18, 0.25);
 
   --gutter: clamp(14px, 1.8vw, 26px);
   --rail-h: clamp(250px, 55svh, 580px);
@@ -33,6 +38,21 @@
 @font-face { font-family: "EB Garamond"; src: url("../fonts/eb-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: "EB Garamond"; src: url("../fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 
+/* Modo oscuro: fondo negro, letras blancas */
+:root[data-theme="dark"] {
+  --paper: #0a0a0a;
+  --paper-rgb: 10, 10, 10;
+  --ink: #f4f2ee;
+  --muted: #8f938e;
+  --line: rgba(244, 242, 238, 0.16);
+  --accent: #82bb9d;
+  --media-bg: #1b1c1b;
+  --prose-ink: #e7e5e0;
+  --quote-ink: #bebcb7;
+  --ghost: rgba(244, 242, 238, 0.2);
+  color-scheme: dark;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -47,6 +67,7 @@ body {
   font-family: var(--f-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 body.is-reading { overflow: hidden; }
@@ -167,7 +188,7 @@ button { font: inherit; color: inherit; }
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: #d8d6d0;
+  background: var(--media-bg);
 }
 
 .media img,
@@ -196,7 +217,7 @@ button { font: inherit; color: inherit; }
   place-items: center;
   font-family: var(--f-display);
   font-size: calc(var(--rail-h) * 0.3);
-  color: rgba(18, 20, 18, 0.25);
+  color: var(--ghost);
 }
 
 .caption {
@@ -268,6 +289,7 @@ button { font: inherit; color: inherit; }
   display: flex;
   flex-direction: column;
   background: var(--paper);
+  color: var(--ink);
   transform: translate3d(0, 100%, 0);
   transition: transform 0.85s var(--ease-out);
 }
@@ -286,7 +308,38 @@ button { font: inherit; color: inherit; }
   z-index: 2;
 }
 
-.reader-bar .lang { justify-self: end; }
+.reader-bar .controls { justify-self: end; }
+
+/* ---------- Controles: idioma + tema ---------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -4px -4px -4px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color 0.3s, transform 0.6s var(--ease-out);
+}
+
+.theme-toggle:hover { color: var(--accent); transform: rotate(-20deg); }
+.theme-toggle svg { width: 19px; height: 19px; grid-area: 1 / 1; transition: opacity 0.4s, transform 0.6s var(--ease-out); }
+
+/* En claro se ve la luna (pasar a oscuro); en oscuro, el sol (pasar a claro) */
+.theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+:root[data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
 
 .back {
   justify-self: start;
@@ -366,7 +419,7 @@ button { font: inherit; color: inherit; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(242, 240, 235, 0) 35%, rgba(242, 240, 235, 0.75) 72%, var(--paper) 100%);
+  background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0) 35%, rgba(var(--paper-rgb), 0.75) 72%, var(--paper) 100%);
   pointer-events: none;
 }
 
@@ -410,7 +463,7 @@ button { font: inherit; color: inherit; }
   font-family: var(--f-read);
   font-size: clamp(1.1rem, 0.95rem + 0.45vw, 1.3rem);
   line-height: 1.72;
-  color: #1b1d1b;
+  color: var(--prose-ink);
   hanging-punctuation: first;
   font-variant-ligatures: common-ligatures;
 }
@@ -456,7 +509,7 @@ button { font: inherit; color: inherit; }
   padding: 0.1em 0 0.1em 1.2em;
   border-left: 1px solid var(--accent);
   font-style: italic;
-  color: #3a3d3a;
+  color: var(--quote-ink);
 }
 
 .prose blockquote p:last-child { margin-bottom: 0; }
@@ -568,6 +621,7 @@ button { font: inherit; color: inherit; }
   transition: background 0.3s, color 0.3s;
 }
 
+.btn-line { color: var(--ink); }
 .btn-line:hover { background: var(--ink); color: var(--paper); }
 
 .noscript { padding: var(--gutter); }

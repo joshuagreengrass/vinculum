@@ -160,6 +160,30 @@ function setLang(lang) {
   refreshMinutes();
 }
 
+// ---------------------------------------------------------------------------
+// Tema claro / oscuro
+
+function currentTheme() {
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  store.set('vinculum-theme', theme);
+  applyTheme();
+}
+
+function applyTheme() {
+  const dark = currentTheme() === 'dark';
+  $('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0a0a0a' : '#f2f0eb');
+  $$('[data-theme-toggle]').forEach((b) => {
+    const label = ui(dark ? 'themeLight' : 'themeDark');
+    b.setAttribute('aria-label', label);
+    b.title = label;
+    b.setAttribute('aria-pressed', String(dark));
+  });
+}
+
 function applyLang() {
   document.documentElement.lang = state.lang;
   document.title = `${state.site.title} — ${state.site.author}`;
@@ -175,6 +199,7 @@ function applyLang() {
 
   $$('.card').forEach((card) => fillCard(card, byId(card.dataset.id)));
   renderIssue();
+  applyTheme();
 }
 
 // ---------------------------------------------------------------------------
@@ -580,6 +605,7 @@ async function boot() {
   state.lang = initialLang();
 
   $$('[data-lang-switch] button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  $$('[data-theme-toggle]').forEach((b) => b.addEventListener('click', () => setTheme(currentTheme() === 'dark' ? 'light' : 'dark')));
 
   rail.init();
   reader.init();

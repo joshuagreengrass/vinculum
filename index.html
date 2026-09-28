@@ -11,15 +11,30 @@
   <meta property="og:image" content="media/og.jpg">
   <link rel="icon" href="media/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/unifrakturcook-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    // Aplica el tema antes de pintar, para que no haya parpadeo.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('vinculum-theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="./" data-site="author">Josh Greengrass</a>
-    <div class="lang" role="group" aria-label="Idioma" data-lang-switch>
-      <button type="button" data-lang="es">ES</button>
-      <span aria-hidden="true">/</span>
-      <button type="button" data-lang="en">EN</button>
+    <div class="controls">
+      <div class="lang" role="group" aria-label="Idioma" data-lang-switch>
+        <button type="button" data-lang="es">ES</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Modo oscuro">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        </button>
     </div>
   </header>
 
@@ -41,10 +56,16 @@
         <span data-ui="back">Volver</span>
       </button>
       <span class="crumb" id="crumb"></span>
-      <div class="lang" role="group" aria-label="Idioma" data-lang-switch>
-        <button type="button" data-lang="es">ES</button>
-        <span aria-hidden="true">/</span>
-        <button type="button" data-lang="en">EN</button>
+      <div class="controls">
+        <div class="lang" role="group" aria-label="Idioma" data-lang-switch>
+          <button type="button" data-lang="es">ES</button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-lang="en">EN</button>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Modo oscuro">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        </button>
       </div>
       <div class="progress" aria-hidden="true"><span id="progress"></span></div>
     </div>

@@ -53,7 +53,7 @@ Atajo opcional (necesita Node): `node scripts/new-chapter.mjs --es "Título" --e
 | `id` | sí | Identificador corto; aparece en la URL (`/#/es/06`). No lo cambies después de publicar. |
 | `number` | sí | Orden de lectura y número que se muestra. |
 | `date` | sí | Fecha de publicación, formato `AAAA-MM-DD`. |
-| `cover` | sí | Ruta a la portada. Si termina en `.mp4`/`.webm` se reproduce como video en loop, sin sonido. |
+| `cover` | sí | Ruta a la portada: imagen (`.jpg`, `.png`, `.webp`), **GIF animado** (`.gif`) o video (`.mp4`/`.webm`, se reproduce en loop y sin sonido). |
 | `poster` | no | Imagen que se ve mientras carga el video (y si el navegador no puede reproducirlo). |
 | `title` | sí | Título en cada idioma. |
 | `summary` | no | Frase que acompaña al título en la tarjeta del carrusel. |
@@ -74,8 +74,14 @@ Atajo opcional (necesita Node): `node scripts/new-chapter.mjs --es "Título" --e
 ## Portadas
 
 - Imagen: vertical u horizontal, ~1200 px de lado mayor, JPG/WebP de menos de 400 KB.
+- GIF: funciona igual que una imagen (`"cover": "media/covers/06.gif"`). Los GIF pesan mucho: si pasa de ~5 MB, convertilo a MP4 (misma animación, 10–20 veces más liviano), por ejemplo con `ffmpeg -i 06.gif -movflags +faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" 06.mp4`.
 - Video: MP4 (H.264), sin audio, 4–10 s en loop, idealmente < 3 MB. Agregá siempre un `poster`.
 - Los videos del carrusel solo se reproducen cuando están en pantalla.
+
+## Modo claro / oscuro
+
+El botón sol/luna (al lado del selector de idioma, también dentro del lector) alterna entre fondo claro y fondo negro con letras blancas. Se recuerda la elección; en la primera visita se usa la preferencia del sistema.
+Los colores de cada modo están arriba de todo en `css/styles.css` (`:root` para claro, `:root[data-theme="dark"]` para oscuro).
 
 ## Idiomas
 
