@@ -1,0 +1,65 @@
+{
+  "chapters": [
+    {
+      "id": "01",
+      "number": 1,
+      "date": "2026-08-03",
+      "cover": "media/covers/01.jpg",
+      "title": { "es": "Nexus", "en": "Nexus" },
+      "summary": {
+        "es": "Un nombre heredado pesa más que cualquier maldición.",
+        "en": "An inherited name weighs more than any curse."
+      },
+      "file": { "es": "chapters/es/01.md", "en": "chapters/en/01.md" }
+    },
+    {
+      "id": "02",
+      "number": 2,
+      "date": "2026-08-17",
+      "cover": "media/covers/02.jpg",
+      "title": { "es": "Sanguis", "en": "Sanguis" },
+      "summary": {
+        "es": "Toda sangre recuerda de dónde vino.",
+        "en": "All blood remembers where it came from."
+      },
+      "file": { "es": "chapters/es/02.md", "en": "chapters/en/02.md" }
+    },
+    {
+      "id": "03",
+      "number": 3,
+      "date": "2026-08-31",
+      "cover": "media/covers/03.mp4",
+      "poster": "media/covers/03.jpg",
+      "title": { "es": "Umbra", "en": "Umbra" },
+      "summary": {
+        "es": "Lo que se esconde en la casa también escucha.",
+        "en": "Whatever hides in the house is listening too."
+      },
+      "file": { "es": "chapters/es/03.md", "en": "chapters/en/03.md" }
+    },
+    {
+      "id": "04",
+      "number": 4,
+      "date": "2026-09-14",
+      "cover": "media/covers/04.jpg",
+      "title": { "es": "Nodus", "en": "Nodus" },
+      "summary": {
+        "es": "Un pacto no se rompe: se desata, hilo por hilo.",
+        "en": "A pact is never broken — it comes undone, thread by thread."
+      },
+      "file": { "es": "chapters/es/04.md", "en": "chapters/en/04.md" }
+    },
+    {
+      "id": "05",
+      "number": 5,
+      "date": "2026-09-28",
+      "cover": "media/covers/05.jpg",
+      "title": { "es": "Cinis", "en": "Cinis" },
+      "summary": {
+        "es": "Después del fuego, alguien tiene que contar las cenizas.",
+        "en": "After the fire, someone has to count the ashes."
+      },
+      "file": { "es": "chapters/es/05.md", "en": "chapters/en/05.md" }
+    }
+  ]
+}

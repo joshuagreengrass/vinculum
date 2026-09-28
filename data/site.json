@@ -1,0 +1,40 @@
+{
+  "title": "Vinculum",
+  "author": "Josh Greengrass",
+  "defaultLang": "es",
+  "languages": ["es", "en"],
+  "description": {
+    "es": "Vinculum — un fanfic por capítulos.",
+    "en": "Vinculum — a serialized fanfic."
+  },
+  "ui": {
+    "es": {
+      "langLabel": "Idioma",
+      "chaptersLabel": "Capítulos",
+      "chapter": "Capítulo",
+      "minutes": "min",
+      "back": "Volver",
+      "next": "Siguiente capítulo",
+      "end": "Fin de lo publicado",
+      "endHint": "El próximo capítulo está en camino.",
+      "toIndex": "Volver al índice",
+      "loading": "Cargando…",
+      "error": "No se pudo cargar este capítulo.",
+      "fallback": "Este capítulo todavía no está disponible en español; se muestra en inglés."
+    },
+    "en": {
+      "langLabel": "Language",
+      "chaptersLabel": "Chapters",
+      "chapter": "Chapter",
+      "minutes": "min",
+      "back": "Back",
+      "next": "Next chapter",
+      "end": "End of what's published",
+      "endHint": "The next chapter is on its way.",
+      "toIndex": "Back to index",
+      "loading": "Loading…",
+      "error": "This chapter couldn't be loaded.",
+      "fallback": "This chapter isn't available in English yet; showing the Spanish version."
+    }
+  }
+}
