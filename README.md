@@ -60,7 +60,25 @@ Atajo opcional (necesita Node): `node scripts/new-chapter.mjs --es "Título" --e
 | `file` | sí | Ruta al `.md` de cada idioma. Si falta un idioma, se muestra el otro con un aviso. |
 | `minutes` | no | Minutos de lectura. Si no está, se calculan solos a partir del texto. |
 | `layout` | no | Forzar el formato de tarjeta: `"a"`, `"b"` (grande) o `"c"` (texto arriba). Por defecto alternan a-b-c. |
-| `draft` | no | `true` para ocultarlo sin borrarlo (útil para dejarlo subido antes de la fecha). |
+| `draft` | no | `true` para ocultarlo por completo sin borrarlo. |
+
+## Estados de un capítulo
+
+Se deciden solos según `draft` y `date` (a la medianoche de la hora de cada lector):
+
+| Estado | Condición | Cómo se ve |
+|---|---|---|
+| Borrador | `"draft": true` | No aparece en ningún lado. |
+| Próximamente | sin draft, `date` en el futuro | En el carrusel, en gris y sin clic: recuadro con el número en gótica, título y "Disponible el: fecha". Al final del capítulo anterior aparece "Próximamente · fecha", también sin clic. |
+| Publicado | sin draft, `date` hoy o antes | Normal. Si salió en los últimos 7 días, lleva la pill **Nuevo / New** sobre la portada. |
+
+El texto al lado de "Vinculum" (Capítulo Nº… · mes) muestra siempre el **último publicado**: el de número más alto con fecha de hoy o anterior y sin draft.
+
+Así podés dejar subido un capítulo con fecha futura (texto y portada incluidos) y se libera solo ese día, sin volver a hacer push. Mientras tanto, la portada y el texto no se muestran, aunque técnicamente los archivos ya estén en el servidor.
+
+### Vista previa
+
+Agregá `?preview` a la URL (ej. `https://tu-sitio.vercel.app/?preview`) para ver el sitio **como si todo ya estuviera publicado**: los capítulos en `draft` y los de fecha futura aparecen normales, con portada, y se pueden abrir y leer. El texto al lado de "Vinculum" muestra el capítulo de número más alto, y los de fecha futura llevan la pill "Nuevo", como la tendrán el día que salgan. Arriba aparece la etiqueta "Vista previa" / "Preview". Los visitantes sin el parámetro no ven nada distinto. El parámetro se mantiene al abrir capítulos y cambiar de idioma.
 
 ## Cómo escribir los `.md`
 

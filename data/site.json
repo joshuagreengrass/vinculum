@@ -25,7 +25,11 @@
       "error": "No se pudo cargar este capítulo.",
       "fallback": "Este capítulo todavía no está disponible en español; se muestra en inglés.",
       "themeDark": "Activar modo oscuro",
-      "themeLight": "Activar modo claro"
+      "themeLight": "Activar modo claro",
+      "soon": "Próximamente",
+      "availableOn": "Disponible el:",
+      "new": "Nuevo",
+      "preview": "Vista previa"
     },
     "en": {
       "langLabel": "Language",
@@ -41,7 +45,11 @@
       "error": "This chapter couldn't be loaded.",
       "fallback": "This chapter isn't available in English yet; showing the Spanish version.",
       "themeDark": "Switch to dark mode",
-      "themeLight": "Switch to light mode"
+      "themeLight": "Switch to light mode",
+      "soon": "Coming soon",
+      "availableOn": "Available on:",
+      "new": "New",
+      "preview": "Preview"
     }
   }
 }

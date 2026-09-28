@@ -21,6 +21,7 @@ const state = {
   pushed: false,        // si abrimos el lector agregando una entrada al historial
   lastFocus: null,
   loadSeq: 0,
+  preview: false,       // ?preview en la URL
 };
 
 // ---------------------------------------------------------------------------
@@ -68,6 +69,20 @@ const fmt = {
   short: (iso) => new Intl.DateTimeFormat(state.lang, { day: '2-digit', month: '2-digit', year: 'numeric' }).format(parseDate(iso)),
   long: (iso) => new Intl.DateTimeFormat(state.lang, { day: 'numeric', month: 'long', year: 'numeric' }).format(parseDate(iso)),
   month: (iso) => new Intl.DateTimeFormat(state.lang, { month: 'long', year: 'numeric' }).format(parseDate(iso)),
+};
+
+// Estado de publicación según la fecha (medianoche local de cada lector)
+const DAY = 86400000;
+function todayLocal() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+const daysSince = (iso) => Math.round((todayLocal() - parseDate(iso)) / DAY);
+// En ?preview todo se trata como publicado (drafts y fechas futuras incluidos).
+const isReleased = (ch) => state.preview || daysSince(ch.date) >= 0;  // date <= hoy
+const isNew = (ch) => {                                              // últimos 7 días
+  const d = daysSince(ch.date);
+  return d < 7 && (d >= 0 || state.preview);
 };
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v|ogv)(\?.*)?$/i.test(src || '');
@@ -215,11 +230,32 @@ function cardCaption(ch) {
 
 function fillCard(card, ch) {
   if (!ch) return;
+  const pill = $('.pill', card);
+  if (pill) pill.textContent = ui('new');
+
+  if (!isReleased(ch)) {
+    // Próximamente: número, título y fecha de salida. Sin resumen ni minutos.
+    $('.caption', card).textContent = `${ui('chapter')} ${pad(ch.number)}: ${pick(ch.title)}`;
+    $('.meta', card).innerHTML = `<span>${ui('availableOn')}</span><span>${fmt.short(ch.date)}</span>`;
+    card.setAttribute('aria-label',
+      `${ui('chapter')} ${ch.number}: ${pick(ch.title)} — ${ui('availableOn')} ${fmt.long(ch.date)}`);
+    return;
+  }
+
   $('.caption', card).textContent = cardCaption(ch);
   const min = minutesFor(ch);
   $('.meta', card).innerHTML =
     `<span>${fmt.short(ch.date)}</span><span>${min ? `${min} ${ui('minutes')}` : '&nbsp;'}</span>`;
-  card.setAttribute('aria-label', `${ui('chapter')} ${ch.number}: ${pick(ch.title)}`);
+  card.setAttribute('aria-label',
+    `${ui('chapter')} ${ch.number}: ${pick(ch.title)}${isNew(ch) ? ` — ${ui('new')}` : ''}`);
+}
+
+// Recuadro vacío con el número en gótica (capítulos que todavía no salieron)
+function emptyMedia(ch) {
+  const box = document.createElement('div');
+  box.className = 'media is-empty';
+  box.dataset.num = pad(ch.number);
+  return box;
 }
 
 function makeCard(ch, index) {
@@ -229,7 +265,18 @@ function makeCard(ch, index) {
   card.className = `card card--${layout}`;
   card.dataset.id = ch.id;
 
-  const media = createMedia(ch, { eager: index < 4 });
+  const released = isReleased(ch);
+  if (!released) {
+    card.classList.add('card--soon');
+    card.setAttribute('aria-disabled', 'true');
+  }
+
+  const media = released ? createMedia(ch, { eager: index < 4 }) : emptyMedia(ch);
+  if (released && isNew(ch)) {
+    const pill = document.createElement('span');
+    pill.className = 'pill';
+    media.append(pill);
+  }
   const caption = document.createElement('p');
   caption.className = 'caption';
   const meta = document.createElement('p');
@@ -248,7 +295,8 @@ function makeCard(ch, index) {
 }
 
 function renderIssue() {
-  const latest = state.chapters[state.chapters.length - 1];
+  // Último capítulo publicado: el de número más alto con fecha <= hoy (sin drafts)
+  const latest = state.chapters.filter(isReleased).pop();
   if (!latest) { $('#issue').textContent = ''; return; }
   $('#issue').innerHTML = [
     `${ui('chapter')} Nº${pad(latest.number)} · ${state.site.title}`,
@@ -282,7 +330,7 @@ const rail = {
 
     this.track.addEventListener('click', (e) => {
       const card = e.target.closest('.card');
-      if (!card) return;
+      if (!card || card.getAttribute('aria-disabled') === 'true') return;
       if (this.suppressClick) { e.preventDefault(); return; }
       state.lastFocus = card;
       openChapter(card.dataset.id);
@@ -398,7 +446,7 @@ const rail = {
 async function refreshMinutes() {
   const lang = state.lang;
   for (const ch of state.chapters) {
-    if (ch.minutes) continue;
+    if (ch.minutes || !isReleased(ch)) continue;
     await getText(ch.file?.[lang]);
     if (lang !== state.lang) return;
     $$(`.card[data-id="${ch.id}"]`).forEach((card) => fillCard(card, ch));
@@ -487,7 +535,7 @@ function route() {
       refreshMinutes();
     }
     const ch = byId(id);
-    if (!ch) { history.replaceState(null, '', location.pathname); return route(); }
+    if (!ch || !isReleased(ch)) { history.replaceState(null, '', location.pathname); return route(); }
     if (state.current?.id !== ch.id) renderReader(ch);
     reader.show();
   } else if (state.current) {
@@ -565,7 +613,17 @@ function renderEnd(ch) {
   const next = state.chapters[idx + 1];
   end.innerHTML = '<span class="rule" aria-hidden="true">✠</span>';
 
-  if (next) {
+  if (next && !isReleased(next)) {
+    // El siguiente todavía no salió: en gris y sin clic, con la fecha.
+    const soon = document.createElement('div');
+    soon.className = 'next is-soon';
+    soon.setAttribute('aria-disabled', 'true');
+    const text = document.createElement('span');
+    text.innerHTML = `<span class="next-label">${ui('soon')} · ${fmt.short(next.date)}</span><span class="next-title"></span>`;
+    $('.next-title', text).textContent = pick(next.title);
+    soon.append(emptyMedia(next), text);
+    end.append(soon);
+  } else if (next) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'next';
@@ -599,9 +657,18 @@ function renderEnd(ch) {
 async function boot() {
   const [site, data] = await Promise.all([getJSON('data/site.json'), getJSON('data/chapters.json')]);
   state.site = site;
+  // ?preview en la URL: se ve todo como si ya estuviera publicado
+  // (capítulos en draft y con fecha futura incluidos).
+  state.preview = new URLSearchParams(location.search).has('preview');
   state.chapters = (data.chapters || [])
-    .filter((c) => !c.draft)
+    .filter((c) => state.preview || !c.draft)
     .sort((a, b) => a.number - b.number);
+  if (state.preview) {
+    const badge = document.createElement('span');
+    badge.className = 'preview-badge';
+    badge.dataset.ui = 'preview';
+    $('.brand').after(badge);
+  }
   state.lang = initialLang();
 
   $$('[data-lang-switch] button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));

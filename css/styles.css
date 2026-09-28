@@ -95,6 +95,19 @@ button { font: inherit; color: inherit; }
   line-height: 1;
 }
 
+.preview-badge {
+  margin-left: 12px;
+  margin-right: auto;
+  padding: 4px 8px 2px;
+  border: 1px solid currentColor;
+  color: var(--accent);
+  font-family: var(--f-label);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .lang {
   display: flex;
   align-items: center;
@@ -218,6 +231,32 @@ button { font: inherit; color: inherit; }
   font-family: var(--f-display);
   font-size: calc(var(--rail-h) * 0.3);
   color: var(--ghost);
+}
+
+/* Próximamente: en gris, sin portada ni clic */
+.rail-track .card--soon,
+.rail-track:hover .card--soon { opacity: 0.5; cursor: not-allowed; }
+.card--soon .caption,
+.card--soon .meta,
+.card--soon:hover .caption { color: var(--muted); }
+.card--soon .media.is-empty::after { color: var(--muted); opacity: 0.55; }
+
+/* Pill "Nuevo" / "New" sobre la portada */
+.pill {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  padding: 4px 9px 2px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-label);
+  font-size: clamp(12px, calc(var(--rail-h) * 0.028), 15px);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .caption {
@@ -591,6 +630,10 @@ button { font: inherit; color: inherit; }
   transition: transform 0.5s var(--ease-out);
 }
 
+.next.is-soon { cursor: not-allowed; opacity: 0.5; grid-template-columns: 88px 1fr; }
+.next.is-soon .next-title { color: var(--muted); }
+.next.is-soon .media.is-empty::after { font-size: 44px; color: var(--muted); }
+
 .next:hover .next-arrow { transform: translateX(6px); }
 .next:hover .next-title { color: var(--accent); }
 
@@ -641,6 +684,7 @@ button { font: inherit; color: inherit; }
   .issue span + span::before { content: " · "; }
   .next { grid-template-columns: 64px 1fr auto; gap: 14px; }
   .next .media { height: 80px; }
+  .next.is-soon { grid-template-columns: 64px 1fr; }
 }
 
 @media (max-height: 560px) and (orientation: landscape) {

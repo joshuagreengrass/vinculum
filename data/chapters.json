@@ -7,8 +7,8 @@
       "cover": "media/covers/vinculum1.gif",
       "title": { "es": "Limen", "en": "Limen" },
       "summary": {
-        "es": "La magia oscura siempre deja rastro. La pregunta es sobre quién.",
-        "en": "Dark magic always leaves a trace. The question is on whom."
+        "es": "Todo deja rastro.",
+        "en": "Everything leaves a trace."
       },
       "file": { "es": "chapters/es/01.md", "en": "chapters/en/01.md" }
     },
@@ -16,24 +16,24 @@
       "id": "02",
       "number": 2,
       "date": "2026-09-27",
-      "cover": "media/covers/vinculum2.gif",
+      "cover": "media/covers/02.webp",
       "title": { "es": "Signum", "en": "Signum" },
       "summary": {
-        "es": "Hay umbrales que se cruzan una sola vez y se siguen cruzando toda la vida.",
-        "en": "Some thresholds are crossed only once, and crossed again for a lifetime."
+        "es": "Todo umbral se cruza dos veces.",
+        "en": "Every threshold is crossed twice."
       },
       "file": { "es": "chapters/es/02.md", "en": "chapters/en/02.md" }
     },
     {
       "id": "03",
       "number": 3,
-      "date": "2026-09-30",
-      "cover": "media/covers/vinculum3.gif",
-      "poster": "media/covers/vinculum3.gif",
-      "title": { "es": "Proximamente", "en": "Soon" },
+      "date": "2026-09-28",
+      "cover": "media/covers/vinculum2.gif",
+      "poster": "media/covers/vinculum2.gif",
+      "title": { "es": "Solutio", "en": "Solutio" },
       "summary": {
-        "es": "---",
-        "en": "---"
+        "es": "Lo disuelto nunca se va del todo.",
+        "en": "What dissolves never fully leaves."
       },
       "file": { "es": "chapters/es/03.md", "en": "chapters/en/03.md" }
     },
@@ -41,7 +41,8 @@
       "id": "04",
       "number": 4,
       "date": "2026-09-30",
-      "cover": "media/covers/vinculum4.gif",
+      "cover": "media/covers/03.webp",
+      "draft": true,
       "title": { "es": "Proximamente", "en": "Soon" },
       "summary": {
         "es": "---",
@@ -54,6 +55,7 @@
       "number": 5,
       "date": "2026-09-30",
       "cover": "media/covers/template.jpg",
+      "draft": true,
       "title": { "es": "Proximamente", "en": "Soon" },
       "summary": {
         "es": "---",
