@@ -60,6 +60,18 @@
         "en": "The account no longer balances."
       },
       "file": { "es": "chapters/es/05.md", "en": "chapters/en/05.md" }
+    },
+    {
+      "id": "06",
+      "number": 6,
+      "date": "2026-10-05",
+      "cover": "media/covers/04.webp",
+      "title": { "es": "Confessio", "en": "Confessio" },
+      "summary": {
+        "es": "No se puede confesar lo que no se recuerda.",
+        "en": "You can't confess what you don't remember."
+      },
+      "file": { "es": "chapters/es/06.md", "en": "chapters/en/06.md" }
     }
   ]
 }
