@@ -52,13 +52,12 @@
     {
       "id": "05",
       "number": 5,
-      "date": "2026-09-30",
-      "cover": "media/covers/template.jpg",
-      "draft": true,
-      "title": { "es": "Proximamente", "en": "Soon" },
+      "date": "2026-10-04",
+      "cover": "media/covers/vinculum3.gif",
+      "title": { "es": "Ratio", "en": "Ratio" },
       "summary": {
-        "es": "---",
-        "en": "---"
+        "es": "La cuenta ya no cierra.",
+        "en": "The account no longer balances."
       },
       "file": { "es": "chapters/es/05.md", "en": "chapters/en/05.md" }
     }
