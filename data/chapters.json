@@ -40,13 +40,13 @@
     {
       "id": "04",
       "number": 4,
-      "date": "2026-09-30",
+      "date": "2026-10-03",
       "cover": "media/covers/03.webp",
       "draft": true,
-      "title": { "es": "Proximamente", "en": "Soon" },
+      "title": { "es": "Macula", "en": "Macula" },
       "summary": {
-        "es": "---",
-        "en": "---"
+        "es": "Hay manchas que uno elige no limpiar.",
+        "en": "Some stains you choose not to wash out."
       },
       "file": { "es": "chapters/es/04.md", "en": "chapters/en/04.md" }
     },
