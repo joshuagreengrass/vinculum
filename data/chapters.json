@@ -42,7 +42,6 @@
       "number": 4,
       "date": "2026-10-03",
       "cover": "media/covers/03.webp",
-      "draft": true,
       "title": { "es": "Macula", "en": "Macula" },
       "summary": {
         "es": "Hay manchas que uno elige no limpiar.",
