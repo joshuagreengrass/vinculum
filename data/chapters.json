@@ -84,6 +84,18 @@
         "en": "The one who brought the first news never left."
       },
       "file": { "es": "chapters/es/07es.md", "en": "chapters/en/07en.md" }
+    },
+    {
+      "id": "08",
+      "number": 8,
+      "date": "2026-10-11",
+      "cover": "media/covers/05.webp",
+      "title": { "es": "Nuntius", "en": "Nuntius" },
+     "summary": {
+        "es": "Marcas del pasado.",
+        "en": "Marks of the past."
+      },
+      "file": { "es": "chapters/es/08es.md", "en": "chapters/en/08en.md" }
     }
   ]
 }
