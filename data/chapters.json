@@ -72,6 +72,18 @@
         "en": "You can't confess what you don't remember."
       },
       "file": { "es": "chapters/es/06.md", "en": "chapters/en/06.md" }
+    },
+    {
+      "id": "07",
+      "number": 7,
+      "date": "2026-10-10",
+      "cover": "media/covers/vinculum4.gif",
+      "title": { "es": "Nuntius", "en": "Nuntius" },
+      "summary": {
+        "es": "El que trajo la primera noticia nunca se fue.",
+        "en": "The one who brought the first news never left."
+      },
+      "file": { "es": "chapters/es/07es.md", "en": "chapters/en/07en.md" }
     }
   ]
 }
